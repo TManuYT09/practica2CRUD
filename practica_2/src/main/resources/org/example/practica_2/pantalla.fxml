@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="467.0" prefWidth="509.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
+    <TableView fx:id="tablaBocadillos" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+            <TableColumn fx:id="nombreTableColumn" prefWidth="110.0" text="NIA" />
+            <TableColumn fx:id="precioTableColumn" prefWidth="117.0" text="Nombre" />
+         <TableColumn fx:id="precioTableColumn1" prefWidth="210.0" text="Fecha nacimiento" />
+        </columns>
+    </TableView>
+   <TextField prefHeight="25.0" prefWidth="433.0" promptText="Introduce un NIA..." />
+   <TextField promptText="Introduce un nombre..." />
+   <DatePicker promptText="Fecha de nacimiento..." />
+   <Button mnemonicParsing="false" text="Guardar" />
+
+</VBox>
