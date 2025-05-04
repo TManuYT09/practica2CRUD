@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="452.0" prefWidth="403.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pract2.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <TableView fx:id="tablaBBBDD" prefHeight="200.0" prefWidth="200.0">
+     <columns>
+       <TableColumn fx:id="columnaNia" prefWidth="75.0" text="NIA" />
+       <TableColumn fx:id="columnaNombre" prefWidth="75.0" text="Nombre" />
+       <TableColumn fx:id="columnaFecha" prefWidth="117.0" text="Fecha nacimiento" />
+     </columns>
+   </TableView>
+
+   <Button onAction="#editarEstudiante" text="Editar" />
+   <Button onAction="#eliminarEstudiante" text="Eliminar" />
+
+   <TextField fx:id="niaTextField" promptText="Introduce un NIA..." />
+   <TextField fx:id="nombreTextField" promptText="Introduce un nombre..." />
+   <DatePicker fx:id="fechaDatePicker" promptText="Fecha de nacimiento..." />
+
+   <Button fx:id="botonInsertar" onAction="#insertarEstudiante" text="Insertar" />
+   <Button fx:id="botonGuardar" onAction="#actualizarEstudiante" disable="true" text="Guardar" />
+</VBox>

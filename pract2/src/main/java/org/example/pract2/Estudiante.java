@@ -1,8 +1,6 @@
-package org.example.practica_2;
+package org.example.pract2;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Date;
 
@@ -10,7 +8,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @ToString
 public class Estudiante {
-    private int nia;
+    private Integer nia;
     private String nombre;
     private Date fecha_nacimiento;
 }

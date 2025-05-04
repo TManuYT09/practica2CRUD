@@ -1,4 +1,4 @@
-package org.example.practica_2;
+package org.example.pract2;
 
 import org.mariadb.jdbc.Statement;
 
@@ -6,7 +6,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Main {
-
     static ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -131,6 +130,4 @@ public class Main {
         }
 
     }
-
-
 }
