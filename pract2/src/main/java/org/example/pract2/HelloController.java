@@ -187,7 +187,7 @@ public class HelloController {
 
     public static Connection conexion() {
         Connection conexion;
-        String host = "jdbc:mariadb://localhost:3306/";
+        String host = "jdbc:mariadb://localhost:3307/";
         String user = "root";
         String psw = "";
         String bd = "prueba";
