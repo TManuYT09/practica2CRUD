@@ -23,6 +23,6 @@
    <TextField fx:id="nombreTextField" promptText="Introduce un nombre..." />
    <DatePicker fx:id="fechaDatePicker" promptText="Fecha de nacimiento..." />
 
-   <Button fx:id="botonInsertar" onAction="#insertarEstudiante" text="Insertar" />
+   <Button fx:id="botonInsertar" onAction="#insertarEstudiante" disable="false" text="Insertar" />
    <Button fx:id="botonGuardar" onAction="#actualizarEstudiante" disable="true" text="Guardar" />
 </VBox>

@@ -4,11 +4,14 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.*;
 import org.mariadb.jdbc.Statement;
 
 import java.sql.*;
 import java.time.LocalDate;
+
+import static java.lang.Integer.valueOf;
 
 public class HelloController {
     //Contenido
@@ -76,6 +79,11 @@ public class HelloController {
             throw new RuntimeException(e);
         }
 
+        Estudiante estudiante = new Estudiante(nia,nombre,fecha);
+
+        listaEstudiantes.add(estudiante);
+        nombreTextField.clear();
+        niaTextField.clear();
     }
 
     @FXML
@@ -87,18 +95,11 @@ public class HelloController {
         if (seleccionado != null) {
             System.out.println("Borrando...");
 
-            int nia;
-            try{
-                nia = Integer.parseInt(niaTextField.getText());
-            }catch (NumberFormatException e){
-                System.out.println("NIA inválido");
-                return;
-            }
-            String nombre = nombreTextField.getText();
-            LocalDate temp = fechaDatePicker.getValue();
-            Date fecha = Date.valueOf(temp);
+            int nia = seleccionado.getNia();
+            String nombre = seleccionado.getNombre();
+            Date fecha = seleccionado.getFecha_nacimiento();
 
-            String query = "DELETE FROM estudiantes WHERE nombre = '"+nombre+"' and nia="+nia+" and fecha_nacimiento="+fecha;
+            String query = "DELETE FROM estudiantes WHERE nia="+nia;
 
             Statement stmt;
 
@@ -109,9 +110,17 @@ public class HelloController {
                 System.out.println(e.getMessage());
                 throw new RuntimeException(e);
             }
+
+            Estudiante estudiante = new Estudiante(nia,nombre,fecha);
+
+            listaEstudiantes.remove(estudiante);
         }else{
             System.out.println("No hay ninguna fila seleccionada.");
         }
+
+        nombreTextField.clear();
+        niaTextField.clear();
+
     }
 
     @FXML
@@ -133,33 +142,47 @@ public class HelloController {
     private void actualizarEstudiante(){
         Connection bd = conexion();
 
-        int nia;
-        try{
-            nia = Integer.parseInt(niaTextField.getText());
-        }catch (NumberFormatException e){
-            System.out.println("NIA inválido");
-            return;
+        Estudiante seleccionado = tablaBBBDD.getSelectionModel().getSelectedItem();
+
+        if (seleccionado != null) {
+            int nia_old = seleccionado.getNia();
+            String nombre_old = seleccionado.getNombre();
+            Date fecha_old = seleccionado.getFecha_nacimiento();
+
+            int nia_new;
+            try{
+                nia_new = Integer.parseInt(niaTextField.getText());
+            }catch (NumberFormatException e){
+                System.out.println("NIA inválido");
+                return;
+            }
+            String nombre_new = nombreTextField.getText();
+            LocalDate temp = fechaDatePicker.getValue();
+            Date fecha_new = Date.valueOf(temp);
+
+            System.out.println("Modificando...");
+
+            String query = "UPDATE estudiantes SET nombre = '"+nombre_new+"' and nia = '"+nia_new+"' and fecha_nacimiento='"+fecha_new+"' WHERE nia = "+nia_old;
+
+            Statement stmt;
+
+            try {
+                stmt = (Statement) bd.createStatement();
+                stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                throw new RuntimeException(e);
+            }
+
+            botonGuardar.setDisable(false);
+            botonInsertar.setDisable(true);
+        } else {
+            System.out.println("No hay ninguna fila seleccionada.");
         }
-        String nombre = nombreTextField.getText();
-        LocalDate temp = fechaDatePicker.getValue();
-        Date fecha = Date.valueOf(temp);
 
-        System.out.println("Modificando...");
+        nombreTextField.clear();
+        niaTextField.clear();
 
-        String query = "UPDATE estudiantes SET nombre = 'Patri' WHERE nombre = 'Patricia'";
-
-        Statement stmt;
-
-        try {
-            stmt = (Statement) bd.createStatement();
-            stmt.executeUpdate(query);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
-
-        botonGuardar.setDisable(false);
-        botonInsertar.setDisable(true);
     }
 
     public static Connection conexion() {
